@@ -1,31 +1,29 @@
-import React, { Component } from "react";
+import { useState } from "react";
 import styles from "./Searchbar.module.css";
 
-class Searchbar extends Component {
-    state = {
-        inputValue: "",
-    };
+export default function Searchbar () {
 
-    handleSubmit = (e) => {
+    const [inputValue, setInputValue] = useState("");
+
+
+    const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(this.state.inputValue);
-        this.props.onSubmit(this.state.inputValue);
+        onSubmit(setInputValue);
     };
 
-    handleChange = (e) => {
-        this.setState({ inputValue: e.target.value });
+    const handleChange = (e) => {
+        setInputValue({ inputValue: e.target.value });
     };
 
-    render() {
         return (
             <header className={styles.Searchbar}>
-                <form onSubmit={this.handleSubmit} className={styles.SearchForm}>
+                <form onSubmit={handleSubmit} className={styles.SearchForm}>
                     <button type="submit" className={styles.SearchFormButton}>
                         <span className={styles.SearchFormButtonLabel}>Search</span>
                     </button>
 
                     <input
-                        onChange={this.handleChange}
+                        onChange={handleChange}
                         className={styles.SearchFormInput}
                         type="text"
                         autoComplete="off"
@@ -35,7 +33,4 @@ class Searchbar extends Component {
                 </form>
             </header>
         );
-    }
 }
-
-export default Searchbar;

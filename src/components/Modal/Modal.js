@@ -1,51 +1,47 @@
-import React, { Component, createRef } from "react";
+import { useEffect, createRef } from "react";
 import styles from "./Modal.module.css";
 
-class Modal extends Component {
-    componentDidMount() {
+export default function Modal () {
+    //componentDidMount() {
         window.addEventListener("keydown", this.modalKeyDown);
     }
 
-    componentWillMount() {
+    //componentWillMount() {
         window.removeEventListener("keydown", this.modalKeyDown);
     }
 
-    modalKeyDown = ({ key }) => {
+    const modalKeyDown = ({ key }) => {
         if (key === "Escape") {
-            this.props.onClose();
+            onClose();
         }
     };
 
-    closeOnClick = ({ target, currentTarget }) => {
+    const closeOnClick = ({ target, currentTarget }) => {
         if (target !== currentTarget) {
-            this.props.onClose();
+            onClose();
         }
     };
 
-    backdropRef = createRef();
+   const backdropRef = createRef();
 
-    modalClick = (e) => {
+    const modalClick = (e) => {
         const { current } = this.backdropRef;
         if (current && e.target !== current) {
             return;
         }
-        this.props.onClose();
+        onClose();
     };
 
-    render() {
-        const { url } = this.props;
         return (
             <div
-                onClick={this.modalClick}
+                onClick={modalClick}
                 className={styles.Overlay}
-                ref={this.backdropRef}
+                ref={backdropRef}
             >
-                <div className={styles.Modal} onClick={this.closeOnClick}>
+                <div className={styles.Modal} onClick={closeOnClick}>
                     <img src={url} alt="img" />
                 </div>
             </div>
         );
     }
 }
-
-export default Modal;
