@@ -8,11 +8,11 @@ export default class Load extends React.Component {
     return (
       <div className={styles.loader}>
         <Loader
-          type="TailSpin"
+          type="Puff"
           color="#00BFFF"
-          height={80}
-          width={80}
-          timeout={3000} //3 secs
+          height={100}
+          width={100}
+          timeout={3000}
         />
       </div>
     );

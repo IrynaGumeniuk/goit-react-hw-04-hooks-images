@@ -86,13 +86,13 @@ function App () {
         <ImageGallery images={images} onImgClick={onImgClick} />
         {isLoading && <Load />}
         {images.length > 0 && !isLoading && (
-          <Button onBtnClick={OnLoadMore} text={'Загрузить еще'} />
+          <Button onBtnClick={OnLoadMore} text={'Load more'} />
         )}
         <ToastContainer autoClose={3000} />
 
         {openModal && (
           <Modal onCloseModal={toggleModal}>
-            <img src={currentImages} alt="Dont Worry Be Happy" />
+            <img src={currentImages} alt="Modal" />
           </Modal>
         )}
       </div>
