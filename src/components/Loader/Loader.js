@@ -1,25 +1,20 @@
-import React from "react";
-import Spinner from "react-loader-spinner";
-
-const Loader = () => {
+import React from 'react';
+import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
+import Loader from 'react-loader-spinner';
+import styles from './Loader.module.css';
+export default class Load extends React.Component {
+  //other logic
+  render() {
     return (
-        <div
-            style={{
-                position: "absolute",
-                left: "50%",
-                top: "50%",
-                transform: "translate(-50%, -50%)",
-            }}
-        >
-            <Spinner
-                type="Puff"
-                color="#00BFFF"
-                height={100}
-                width={100}
-                timeout={3000}
-            />
-        </div>
+      <div className={styles.loader}>
+        <Loader
+          type="TailSpin"
+          color="#00BFFF"
+          height={80}
+          width={80}
+          timeout={3000} //3 secs
+        />
+      </div>
     );
-};
-
-export default Loader;
+  }
+}
