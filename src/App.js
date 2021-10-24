@@ -1,16 +1,16 @@
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Searchbar from './Components/Searchbar';
-import ImageGallery from './Components/ImageGallery';
+import Searchbar from './components/Searchbar';
+import ImageGallery from './components/ImageGallery';
 import styles from './App.module.css';
-import imgApi from './Components/Api';
-import Button from './Components/Button';
-import Modal from './Components/Modal';
-import Load from './Components/Loader';
+import imgApi from './components/Api';
+import Button from './components/Button';
+import Modal from './components/Modal';
+import Load from './components/Loader';
 
-function App () {
-  
+function App() {
+
   const [imgName, setImgName] = useState('');
   const [page, setPage] = useState(1);
   const [images, setImages] = useState([]);
@@ -18,14 +18,14 @@ function App () {
   const [currentImages, setCurrentImages] = useState('');
   const [openModal, setOpenModal] = useState(false);
 
-  useEffect(()=>{
+  useEffect(() => {
 
-  if (!imgName) return;
+    if (!imgName) return;
 
-    const fetchImages  = async () =>  {
-    loaderToggle();
-    
-      
+    const fetchImages = async () => {
+      loaderToggle();
+
+
       return imgApi
         .fetchImg(imgName, page)
         .then(images =>
@@ -33,11 +33,11 @@ function App () {
           )
         )
         .finally(() => loaderToggle());
-    
-  };
-  fetchImages();
 
-  },[imgName, page])
+    };
+    fetchImages();
+
+  }, [imgName, page])
 
   const scrollPage = () => {
     setTimeout(() => {
@@ -47,15 +47,15 @@ function App () {
       });
     }, 800);
   };
-  
 
- const handleSearchbarSubmit = imgName => {
-   setImgName(imgName);
-   setPage(1);
-   setImages([]);
+
+  const handleSearchbarSubmit = imgName => {
+    setImgName(imgName);
+    setPage(1);
+    setImages([]);
   };
 
- const OnLoadMore = () => {
+  const OnLoadMore = () => {
     setPage(prev => prev + 1);
     if (imgName) {
       loaderToggle();
@@ -80,23 +80,23 @@ function App () {
     setOpenModal(prev => !prev);
   };
 
-    return (
-      <div className={styles.App}>
-        <Searchbar onSubmit={handleSearchbarSubmit} />
-        <ImageGallery images={images} onImgClick={onImgClick} />
-        {isLoading && <Load />}
-        {images.length > 0 && !isLoading && (
-          <Button onBtnClick={OnLoadMore} text={'Load more'} />
-        )}
-        <ToastContainer autoClose={3000} />
+  return (
+    <div className={styles.App}>
+      <Searchbar onSubmit={handleSearchbarSubmit} />
+      <ImageGallery images={images} onImgClick={onImgClick} />
+      {isLoading && <Load />}
+      {images.length > 0 && !isLoading && (
+        <Button onBtnClick={OnLoadMore} text={'Load more'} />
+      )}
+      <ToastContainer autoClose={3000} />
 
-        {openModal && (
-          <Modal onCloseModal={toggleModal}>
-            <img src={currentImages} alt="Modal" />
-          </Modal>
-        )}
-      </div>
-    );
-  }
+      {openModal && (
+        <Modal onCloseModal={toggleModal}>
+          <img src={currentImages} alt="Modal" />
+        </Modal>
+      )}
+    </div>
+  );
+}
 
 export default App;
